@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useRef, useState, useEffect } from "react";
 import { useDispatch } from "../context/dispatch";
 import { addButtonClicked } from "../stateManager/actions";
 import Form from "react-bootstrap/Form";
@@ -16,6 +16,10 @@ export default function FilterableList({ data }) {
     });
   }, [data, keyword]);
 
+  const searchInput = useRef();
+  useEffect(() => {
+    searchInput.current.focus();
+  });
   return (
     <Form>
       <Form.Row>
@@ -25,13 +29,14 @@ export default function FilterableList({ data }) {
             placeholder="Enter keyword to search"
             value={keyword}
             onChange={(e) => setKeyword(e.target.value)}
+            ref={searchInput}
           />
         </Col>
         <Col md="1">
           <Button onClick={() => dispatch(addButtonClicked())}>Add</Button>
         </Col>
       </Form.Row>
-      <br/>
+      <br />
       <List data={filteredItems} />
     </Form>
   );
