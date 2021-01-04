@@ -39,11 +39,11 @@ export default function ListItem({ text, onDelete, onEdit }) {
         </Modal.Header>
         <Modal.Body>You're about to delete a record. Are you sure?</Modal.Body>
         <Modal.Footer>
+          <Button variant="primary" onClick={handleConfirmDelete}>
+            Yes  
+          </Button>
           <Button variant="secondary" onClick={handleClose}>
             No
-          </Button>
-          <Button variant="primary" onClick={handleConfirmDelete}>
-            Yes
           </Button>
         </Modal.Footer>
       </Modal>
