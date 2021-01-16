@@ -8,24 +8,16 @@ import {
   saveButtonClicked,
 } from "../stateManager/actions";
 
-export default function EditOrAddForm({ initialName, initialPhone, id }) {
+export default function EditOrAddForm({
+  initialName,
+  initialLastName,
+  initialEmail,
+  id,
+}) {
   const [name, setName] = useState(initialName);
-  const [phone, setPhone] = useState(initialPhone);
-  const [nameValid, setNameValid] = useState(true);
-  const [phoneValid, setPhoneValid] = useState(true);
+  const [lastName, setLastName] = useState(initialLastName);
+  const [email, setEmail] = useState(initialEmail);
   const dispatch = useDispatch();
-
-  function handleSave() {
-    if (!name.length) {
-      setNameValid(false);
-    }
-    if (!phone.length) {
-      setPhoneValid(false);
-    }
-    if (name.length && phone.length) {
-      dispatch(saveButtonClicked({ name, phone, id }));
-    }
-  }
 
   function handleCancel() {
     dispatch(cancelButtonClicked());
@@ -33,50 +25,47 @@ export default function EditOrAddForm({ initialName, initialPhone, id }) {
 
   function handleNameChange(e) {
     setName(e.target.value);
-    if (name.length > 0) {
-      setNameValid(true);
-    }
   }
-  function handlePhoneChange(e) {
-    setPhone(e.target.value);
-    if (phone.length > 0) {
-      setPhoneValid(true);
-    }
+  function handleLastNameChange(e) {
+    setLastName(e.target.value);
+  }
+  function handleEmailChange(e) {
+    setEmail(e.target.value);
+  }
+  function handleSave() {
+    dispatch(
+      saveButtonClicked({ name, lastName, email, id })
+    );
   }
 
   return (
     <Form>
       <Form.Group>
-        <Form.Label>Name:</Form.Label>
+        <Form.Label>FirstName:</Form.Label>
         <Form.Control
           type="text"
           placeholder="Name"
           value={name}
           onChange={handleNameChange}
         />
-        {!nameValid ? (
-          <Form.Text style={{ color: "red" }}>
-            Please Enter Your Name!
-          </Form.Text>
-        ) : (
-          () => undefined
-        )}
       </Form.Group>
       <Form.Group>
-        <Form.Label>Phone:</Form.Label>
+        <Form.Label>LastName:</Form.Label>
         <Form.Control
-          type="number"
-          placeholder="Phone"
-          value={phone}
-          onChange={handlePhoneChange}
+          type="text"
+          placeholder="LastName"
+          value={lastName}
+          onChange={handleLastNameChange}
         />
-        {!phoneValid ? (
-          <Form.Text style={{ color: "red" }}>
-            Please Enter Your phone!
-          </Form.Text>
-        ) : (
-          () => undefined
-        )}
+      </Form.Group>
+      <Form.Group>
+        <Form.Label>Email:</Form.Label>
+        <Form.Control
+          type="text"
+          placeholder="Email"
+          value={email}
+          onChange={handleEmailChange}
+        />
       </Form.Group>
       <Button variant="primary" onClick={handleSave}>
         Save

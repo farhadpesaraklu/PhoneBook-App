@@ -1,7 +1,9 @@
 export const DEFAULT_EDITING_RECORD_VALUE = {
-  name: "",
-  phone: "",
+  first_name: "",
+  last_name: "",
+  email: "",
   id: "",
+  avatar:""
 };
 
 export function reducer(state, action) {
@@ -30,37 +32,44 @@ export function reducer(state, action) {
         editingRecord: action.payload,
       };
 
+    case "DATA_RECEIVED":
+      return {
+        ...state,
+        records: action.payload,
+      };
+
     case "SAVE_CLICKED":
       return handleSave(state, action.payload);
 
     default:
-      return state
+      return state;
   }
 }
 
-function handleSave(state, { id, name, phone }) {
+function handleSave(state, { id="", name="", LastName="", email="", avatar="" }) {
   const { records } = state;
   let newRecords = [];
   if (!!id) {
     const index = records.findIndex((x) => x.id === id);
     if (index !== -1) {
       newRecords = [...records];
-      newRecords.splice(index, 1, { name, phone, id });
+      newRecords.splice(index, 1, { id, name, LastName, email, avatar });
     }
   } else {
-    newRecords = [...records, new PhoneBookRecords(name, phone)];
+    newRecords = [...records, new PhoneBookRecords(name, LastName, email)];
   }
   return {
     ...state,
     mode: "search",
     editingRecord: DEFAULT_EDITING_RECORD_VALUE,
-    records : newRecords
+    records: newRecords,
   };
 }
 class PhoneBookRecords {
-    constructor(name, phone) {
-      this.name = name;
-      this.phone = phone;
-      this.id = Math.random().toString();
-    }
+  constructor(name, LastName, email) {
+    this.name = name;
+    this.LastName = LastName;
+    this.email = email;
+    this.id = Math.random().toString();
   }
+}

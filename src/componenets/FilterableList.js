@@ -7,19 +7,24 @@ import Button from "react-bootstrap/Button";
 import List from "./List";
 
 export default function FilterableList({ data }) {
+
   const [keyword, setKeyword] = useState("");
+
   const dispatch = useDispatch();
 
   const filteredItems = useMemo(() => {
     return data.filter((item) => {
-      return item.name.toLowerCase().includes(keyword.toLowerCase());
+      return item.first_name && item.first_name.toLowerCase().includes(keyword.toLowerCase());
     });
   }, [data, keyword]);
 
+
   const searchInput = useRef();
+
   useEffect(() => {
     searchInput.current.focus();
   });
+
   return (
     <Form>
       <Form.Row>

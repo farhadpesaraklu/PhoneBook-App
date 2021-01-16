@@ -20,7 +20,7 @@ export default function ListItem({ text, onDelete, onEdit }) {
   return (
     <>
       <ListGroup.Item>
-        <Row>
+        <Row style={{alignItems:"center"}}>
           <Col md="10">{text}</Col>
           <Col md="2">
             <Button variant="outline-secondary" onClick={onEdit}>

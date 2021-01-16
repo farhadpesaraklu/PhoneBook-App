@@ -10,3 +10,4 @@ export const cancelButtonClicked = () => actionCreator("CANCEL_CLICKED");
 export const saveButtonClicked = (record) => actionCreator("SAVE_CLICKED", record);
 export const deleteButtonClicked = (id) => actionCreator("DELETE_CLICKED", id);
 export const editButtonClicked = (record) => actionCreator("EDIT_CLICKED", record);
+export const getData = (data) => actionCreator("DATA_RECEIVED",data )
